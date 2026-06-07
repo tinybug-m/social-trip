@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import { createPost } from '@/src/services/posts/createPost'
-import { useFormSubmit } from '@/src/lib/useFormHandler'
 import { Controller, useForm } from 'react-hook-form'
 import FormField from '../molecules/FormField'
 import File from '../atoms/File'
 import Select from '../atoms/Select'
+import { useHandleForm } from '@/src/hooks/useHandleForm'
 
 export type CreatePostData = {
   caption: string
@@ -18,7 +17,6 @@ const CreatePostForm = () => {
     register,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm<CreatePostData>({
     defaultValues: {
       caption: '',
@@ -26,31 +24,11 @@ const CreatePostForm = () => {
       type: 'post',
     },
   })
-  const [caption, setCaption] = useState('')
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-  const { createSubmitHandler, isSubmitting } = useFormSubmit({
-    onSuccess: () => {
-      alert('پست با موفقیت همراه با فایل ساخته شد!')
-      setCaption('')
-      setSelectedFile(null)
-    },
-    onError: (error) => {
-      alert(error.message || 'خطا در ثبت پست')
-    },
-  })
-
-  const handleCreatePost = createSubmitHandler(async (data: CreatePostData) => {
-    console.log({ data })
-    // if (!data.file) {
-    //   alert('لطفاً ابتدا یک عکس یا ویدیو انتخاب کنید!')
-    //   return
-    // }
-    // await createPost({ file: data.file, caption: data.caption, type: 'reel' })
-  })
+  const form = useHandleForm(createPost)
 
   return (
-    <form onSubmit={handleSubmit(handleCreatePost)} className="space-y-4">
+    <form onSubmit={handleSubmit(form.submit)} className="space-y-4">
       <FormField label="فایل پست (عکس یا ویدیو)" error={errors?.file?.message}>
         <Controller
           control={control}
@@ -73,7 +51,7 @@ const CreatePostForm = () => {
           required
         />
       </div>
-      
+
       <FormField label="تایپ" error={errors?.type?.message}>
         <Select
           options={[
@@ -86,10 +64,10 @@ const CreatePostForm = () => {
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={form.pending}
         className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white font-semibold rounded-lg shadow-md transition-all"
       >
-        {isSubmitting ? 'در حال آپلود و انتشار...' : 'انتشار پست'}
+        {form.pending ? 'در حال آپلود و انتشار...' : 'انتشار پست'}
       </button>
     </form>
   )
