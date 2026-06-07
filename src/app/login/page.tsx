@@ -3,39 +3,14 @@
 import { useState } from 'react'
 import { LoginForm } from '@/src/components/organisms/LoginForm'
 import { RegisterForm } from '@/src/components/organisms/RegisterForm'
-import { useRouter } from 'next/navigation'
-import { LoginFormData, RegisterFormData } from '@/src/schemas/authSchema'
-import { useFormSubmit } from '@/src/lib/useFormHandler'
+import { useHandleForm } from '@/src/hooks/useHandleForm'
 import { signIn, signUp } from '@/src/services/user/auth'
 
 export default function AuthPage() {
-  const router = useRouter()
   const [view, setView] = useState<'login' | 'register'>('login')
 
-  const [serverError, setServerError] = useState<string | null>(null)
-
-  const { createSubmitHandler, isSubmitting } = useFormSubmit({
-    onSuccess: () => {
-      router.push('/')
-      router.refresh()
-    },
-    onError: (error) => {
-      alert(error)
-      setServerError(error.message)
-    },
-  })
-
-  const handleLoginSubmit = createSubmitHandler(async (data: LoginFormData) => {
-    setServerError(null)
-    return await signIn(data)
-  })
-
-  const handleRegisterSubmit = createSubmitHandler(
-    async (data: RegisterFormData) => {
-      setServerError(null)
-      return await signUp(data)
-    },
-  )
+  const login = useHandleForm(signIn)
+  const register = useHandleForm(signUp)
 
   return (
     <main className="min-h-screen w-full bg-slate-900 flex flex-col justify-center items-center px-4 select-none">
@@ -54,15 +29,15 @@ export default function AuthPage() {
         <div className="transition-all duration-200">
           {view === 'login' ? (
             <LoginForm
-              onSubmit={handleLoginSubmit}
-              isPending={isSubmitting}
-              serverError={serverError}
+              onSubmit={login.submit}
+              isPending={login.pending}
+              serverError={login.error}
             />
           ) : (
             <RegisterForm
-              onSubmit={handleRegisterSubmit}
-              isPending={isSubmitting}
-              serverError={serverError}
+              onSubmit={register.submit}
+              isPending={register.pending}
+              serverError={register.error}
             />
           )}
         </div>
@@ -74,7 +49,6 @@ export default function AuthPage() {
               <button
                 onClick={() => {
                   setView('register')
-                  setServerError(null)
                 }}
                 className="text-blue-400 font-medium hover:text-blue-300 hover:underline transition-colors focus:outline-none"
               >
@@ -87,7 +61,6 @@ export default function AuthPage() {
               <button
                 onClick={() => {
                   setView('login')
-                  setServerError(null)
                 }}
                 className="text-blue-400 font-medium hover:text-blue-300 hover:underline transition-colors focus:outline-none"
               >
