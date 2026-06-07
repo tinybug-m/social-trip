@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClientServer } from '@/src/lib/supabase/server'
 
 export const updateSession = async (request: NextRequest) => {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
+  let response = NextResponse.next()
 
   const supabase = createClientServer({
     cookies: {
@@ -14,12 +10,6 @@ export const updateSession = async (request: NextRequest) => {
         return request.cookies.getAll()
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value }) =>
-          request.cookies.set(name, value),
-        )
-        response = NextResponse.next({
-          request,
-        })
         cookiesToSet.forEach(({ name, value, options }) =>
           response.cookies.set(name, value, options),
         )
