@@ -1,6 +1,9 @@
+'use client'
+
 import { ReelItem } from '../molecules/ReelItem'
 import { Heart, MessageCircle } from 'lucide-react'
 import { Tables } from '@/src/lib/types/database'
+import { useRouter } from 'next/navigation'
 
 type ExploreProps = {
   feed: Tables<'posts'>[]
@@ -8,6 +11,7 @@ type ExploreProps = {
 
 const ExploreGrid = (props: ExploreProps) => {
   const { feed } = props
+  const router = useRouter()
 
   return (
     <main className="max-w-4xl mx-auto p-1 md:p-4">
@@ -20,6 +24,7 @@ const ExploreGrid = (props: ExploreProps) => {
               key={item?.id}
               className={`relative group overflow-hidden bg-zinc-900 border border-zinc-800/30 cursor-pointer 
                     ${isReels ? 'row-span-2' : ''}`}
+              onClick={() => router.push('post/' + item?.id)}
             >
               {!isReels && (
                 <img
@@ -39,7 +44,6 @@ const ExploreGrid = (props: ExploreProps) => {
                 </>
               )}
 
-              {/* لایه هاور دسکتاپ هماهنگ با تم دارک */}
               <div className="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-6 space-x-reverse text-white font-semibold text-sm">
                 <div className="flex items-center space-x-1 space-x-reverse hover:text-red-500 transition-colors">
                   <Heart className="w-5 h-5 fill-white" />
