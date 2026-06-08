@@ -10,7 +10,7 @@ export default async function InstagramExplore() {
   const { data: dbPosts, error: postsError } = await getPosts('post')
   if (postsError) console.error('Error fetching posts:', postsError.message)
 
-  const { data: dbReels, error } = await getPosts('reels')
+  const { data: dbReels, error } = await getPosts('reel')
   if (error) console.error('Error fetching posts:', error.message)
 
   const posts: Post[] = dbPosts || []
