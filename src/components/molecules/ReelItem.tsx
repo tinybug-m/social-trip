@@ -2,9 +2,17 @@
 
 import { useEffect, useRef, useState, useTransition } from 'react'
 import { supabaseClient } from '@/src/lib/supabase/client'
-import { PostItem } from '@/src/app/page'
+import { Post } from '@/src/lib/types/entities'
 
-export function ReelItem({ post }: { post: PostItem }) {
+// TODO : Make video full screen
+// TODO : Add real icons
+// TODO : Connect like
+// TODO : Write a simple comment component
+// TODO : Connect comments
+// TODO : Write caption component
+// TODO : Clean up the ReelItem.tsx file
+
+export function ReelItem({ post }: { post: Post }) {
   const supabase = supabaseClient
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
