@@ -13,10 +13,10 @@ A social media platform for sharing posts, interacting with users, and building 
 
 ### Auth
 
-- [ ] Sign up with email/password
-- [ ] Login
+- [x] Sign up with email/password
+- [x] Login
 - [ ] Logout
-- [ ] Persist session (middleware / SSR handling)
+- [x] Persist session (middleware / SSR handling)
 
 ### Posts
 
