@@ -4,7 +4,6 @@
 
 Short description of what this project is trying to achieve.
 
-Example:
 A social media platform for sharing posts, interacting with users, and building a feed-based experience.
 
 ---
@@ -26,8 +25,9 @@ A social media platform for sharing posts, interacting with users, and building 
 
 ### Feed
 
-- [ ] Show posts in reverse chronological order
-- [ ] Pagination or infinite scroll (basic version)
+- [ ] Feed TopNavBar (smooth navigation)
+- [ ] Reels Feed
+- [ ] Eplore Page
 
 ---
 

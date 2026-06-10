@@ -3,6 +3,8 @@ import { ButtonHTMLAttributes } from 'react'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
 }
+// TODO : install cvs 
+// TODO : use cvs for Button component
 
 const Button = ({ isLoading, className, children, ...props }: ButtonProps) => {
   return (
