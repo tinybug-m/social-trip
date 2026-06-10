@@ -1,9 +1,6 @@
-import { PostItem } from '../page'
+import { Post } from '@/src/lib/types/entities'
 
-export const generateFeedArray = async (
-  reels: PostItem[],
-  posts: PostItem[],
-) => {
+export const generateFeedArray = async (reels: Post[], posts: Post[]) => {
   const pattern = ['post', 'post', 'reel']
 
   let reelsQueue = [...reels]
