@@ -1,10 +1,10 @@
 import { ButtonHTMLAttributes } from 'react'
+import type { ButtonVariants } from './Button.style'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>, ButtonVariants {
   isLoading?: boolean
 }
-// TODO : install cvs 
-// TODO : use cvs for Button component
 
 const Button = ({ isLoading, className, children, ...props }: ButtonProps) => {
   return (
