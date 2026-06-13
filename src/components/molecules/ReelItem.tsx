@@ -28,7 +28,7 @@ export function ReelItem({ post }: { post: Post }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => {})
+          video.play().catch(() => { })
         } else {
           video.pause()
         }
@@ -86,7 +86,7 @@ export function ReelItem({ post }: { post: Post }) {
   }
 
   return (
-    <div className="h-dvh snap-start relative bg-black">
+    <div className="h-dvh snap-start relative bg-black max-h-full">
       <video
         ref={videoRef}
         src={post.media_url}
