@@ -6,6 +6,7 @@ export const buttonVariants = cva(
     'font-medium',
     'rounded-md',
     'transition-colors',
+    'cursor-pointer',
     'disabled:opacity-50',
     'disabled:cursor-not-allowed',
   ],

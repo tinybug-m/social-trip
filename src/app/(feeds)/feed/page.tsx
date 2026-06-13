@@ -23,7 +23,6 @@ export default async function InstagramExplore() {
 
   return (
     <div className="font-sans antialiased">
-      <TopNavBar />
       {feed.length === 0 ? (
         <div className="text-center py-20 text-zinc-500">
           هنوز هیچ پستی منتشر نشده است. اولین پست را خودت بساز! 😉
