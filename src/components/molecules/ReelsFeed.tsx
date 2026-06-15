@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { supabaseClient } from '@/src/lib/supabase/client'
 import { ReelItem } from './ReelItem'
-import { PostItem } from '@/src/app/page'
+import { Post } from '@/src/lib/types/entities'
 
 const PAGE_SIZE = 5
 
-export function ReelsFeed({ initialPosts }: { initialPosts: PostItem[] }) {
+export function ReelsFeed({ initialPosts }: { initialPosts: Post[] }) {
   const supabase = supabaseClient
 
   const [posts, setPosts] = useState(initialPosts)

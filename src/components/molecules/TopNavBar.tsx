@@ -14,9 +14,7 @@ const TopNavBar = () => {
       <div className="flex-1">
         <Button variant="secondary">Eplore</Button>
       </div>
-      <div className="">
-        <Search />
-      </div>
+      <div className="">{/* <Search /> */}</div>
     </div>
   )
 }

@@ -1,13 +1,5 @@
-// import { Database } from '@/src/lib/types/database'
-// import { createClient } from '@supabase/supabase-js'
-
 import { createClientServer } from '@/src/lib/supabase/server'
 import { cookies } from 'next/headers'
-
-// const supabase = createClient<Database>(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-//   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-// )
 
 type Props = PageProps<'/post/[id]'>
 
@@ -24,7 +16,7 @@ const page = async ({ params }: Props) => {
   const { data } = await supabase
     .from('posts')
     .select('*')
-    .eq('id', Number(id))
+    .eq('id', id)
     .single()
 
   if (!data) {

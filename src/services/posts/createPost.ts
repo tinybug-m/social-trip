@@ -26,7 +26,8 @@ export const createPost = async ({ file, caption, type }: CreatePostData) => {
     })
 
   if (uploadError) {
-    throw new Error(`خطا در آپلود فایل: ${uploadError.message}`)
+    console.log(uploadError)
+    throw uploadError
   }
 
   // ۳. گرفتن لینک عمومی فایل
@@ -50,6 +51,7 @@ export const createPost = async ({ file, caption, type }: CreatePostData) => {
   ])
 
   if (insertError) {
+    console.log(insertError)
     throw insertError
   }
 

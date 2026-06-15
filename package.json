@@ -43,10 +43,10 @@
     ],
     "**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
-      "next lint --fix"
+      "eslint --fix"
     ],
     "**/*.{ts,tsx}": [
-      "bash -c 'pnpm tsc --noEmit'"
+      "bash -c 'pnpm tsc --noEmit --pretty'"
     ]
   }
 }
