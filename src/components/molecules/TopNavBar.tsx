@@ -1,20 +1,45 @@
 // TODO : UI
 // TODO : Function
+'use client'
 
 import Button from '@/src/components/atoms/Button'
-import Search from '@/src/assets/icons/search.svg'
+import { Search } from '../atoms/Icons'
+import { useRouter } from 'next/navigation'
 
 const TopNavBar = () => {
-  console.log({ Search })
+  const route = useRouter()
+
+  const goToFeed = () => {
+    route.push('/feed')
+  }
+  const goToExplore = () => {
+    route.push('/reels')
+  }
   return (
     <div className="h-10 w-full flex">
       <div className="flex-1">
-        <Button variant="secondary">Eplore</Button>
+        <Button
+          onClick={goToFeed}
+          variant="secondary"
+          className="bg-transparent"
+        >
+          Explore
+        </Button>
       </div>
       <div className="flex-1">
-        <Button variant="secondary">Eplore</Button>
+        <Button
+          onClick={goToExplore}
+          variant="secondary"
+          className="bg-transparent"
+        >
+          Reels
+        </Button>
       </div>
-      <div className="">{/* <Search /> */}</div>
+      <div className="">
+        <Button variant="secondary" className="h-full bg-transparent">
+          <Search />
+        </Button>
+      </div>
     </div>
   )
 }

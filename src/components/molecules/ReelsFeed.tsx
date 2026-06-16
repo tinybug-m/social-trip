@@ -59,7 +59,7 @@ export function ReelsFeed({ initialPosts }: { initialPosts: Post[] }) {
   }, [loadMore])
 
   return (
-    <div className="h-dvh overflow-y-scroll snap-y snap-mandatory">
+    <div className="h-full overflow-y-scroll snap-y snap-mandatory">
       {posts.map((post) => (
         <ReelItem key={post.id} post={post} />
       ))}
