@@ -14,13 +14,13 @@ export const Search = ({ size = 24, ...props }: IconProps) => (
       cy="8.33331"
       r="6.6"
       stroke="black"
-      stroke-width="1.8"
+      strokeWidth="1.8"
     />
     <path
       d="M18.3334 18.3333L13.3334 13.3333"
       stroke="black"
-      stroke-width="1.8"
-      stroke-linecap="round"
+      strokeWidth="1.8"
+      strokeLinecap="round"
     />
   </svg>
 )
