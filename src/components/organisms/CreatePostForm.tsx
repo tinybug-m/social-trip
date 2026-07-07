@@ -28,7 +28,9 @@ const CreatePostForm = () => {
   const form = useHandleForm(createPost)
 
   return (
+    // Todo: fix colors
     <form onSubmit={handleSubmit(form.submit)} className="space-y-4">
+      {form.error && <p>{form.error}</p>}
       <FormField label="فایل پست (عکس یا ویدیو)" error={errors?.file?.message}>
         <Controller
           control={control}

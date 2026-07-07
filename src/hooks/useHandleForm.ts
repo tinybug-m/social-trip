@@ -3,12 +3,12 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export function useHandleForm(action: (data: any) => Promise<any>) {
+export function useHandleForm<T>(action: (data: T) => Promise<unknown>) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
-  const submit = async (data: any) => {
+  const submit = async (data: T) => {
     setError(null)
     setPending(true)
 
