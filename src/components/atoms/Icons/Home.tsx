@@ -1,6 +1,6 @@
 import { IconProps } from '.'
 
-export const Union = ({ size = 22, ...props }: IconProps) => (
+export const HomeIcon = ({ size = 22, ...props }: IconProps) => (
   <svg
     width={size}
     height={size}
