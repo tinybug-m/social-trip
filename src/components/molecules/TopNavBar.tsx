@@ -3,7 +3,7 @@
 'use client'
 
 import Button from '@/src/components/atoms/Button'
-import { Search } from '../atoms/Icons'
+import { SearchIcon } from '../atoms/Icons'
 import { usePathname, useRouter } from 'next/navigation'
 
 const TopNavBar = () => {
@@ -49,7 +49,7 @@ const TopNavBar = () => {
 
       <div className="">
         <Button variant="secondary" className="h-full bg-transparent">
-          <Search />
+          <SearchIcon />
         </Button>
       </div>
     </div>

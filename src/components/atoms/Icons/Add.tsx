@@ -1,6 +1,6 @@
 import { IconProps } from '.'
 
-export const Add = ({ size = 24, ...props }: IconProps) => (
+export const AddIcon = ({ size = 24, ...props }: IconProps) => (
   <svg
     width={size}
     height={size}
