@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: 'A social network for sharing places with fellow travelers',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: Readonly<{
