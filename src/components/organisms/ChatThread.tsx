@@ -63,12 +63,27 @@ export function ChatThread({
     setError(null)
     setText('')
 
+    const tempId = `temp-${Date.now()}-${Math.random()}`
+    const optimisticMessage: Message = {
+      id: tempId,
+      sender_id: currentUserId,
+      receiver_id: otherUserId,
+      content,
+      created_at: new Date().toISOString(),
+      read_at: null,
+    }
+    setMessages((prev) => [...prev, optimisticMessage])
+
     try {
       const message = await sendMessage(otherUserId, content)
-      setMessages((prev) =>
-        prev.some((m) => m.id === message.id) ? prev : [...prev, message],
-      )
+      setMessages((prev) => {
+        const withoutTemp = prev.filter((m) => m.id !== tempId)
+        return withoutTemp.some((m) => m.id === message.id)
+          ? withoutTemp
+          : [...withoutTemp, message]
+      })
     } catch (e) {
+      setMessages((prev) => prev.filter((m) => m.id !== tempId))
       setError(e instanceof Error ? e.message : 'Could not send message')
       setText(content)
     } finally {
@@ -86,6 +101,7 @@ export function ChatThread({
         ) : (
           messages.map((message) => {
             const isMine = message.sender_id === currentUserId
+            const isSending = message.id.startsWith('temp-')
 
             return (
               <div
@@ -93,7 +109,9 @@ export function ChatThread({
                 className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[75%] rounded-2xl px-3.5 py-2 text-sm break-words ${
+                  className={`max-w-[75%] rounded-2xl px-3.5 py-2 text-sm break-words transition-opacity ${
+                    isSending ? 'opacity-50' : 'opacity-100'
+                  } ${
                     isMine
                       ? 'bg-blue-500 text-white rounded-br-sm'
                       : 'bg-neutral-100 text-[#262626] rounded-bl-sm'
@@ -103,7 +121,9 @@ export function ChatThread({
                   <div
                     className={`text-[10px] mt-0.5 ${isMine ? 'text-blue-100' : 'text-neutral-400'}`}
                   >
-                    {formatRelativeTime(message.created_at)}
+                    {isSending
+                      ? 'Sending...'
+                      : formatRelativeTime(message.created_at)}
                   </div>
                 </div>
               </div>
