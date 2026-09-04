@@ -1,13 +1,16 @@
 @import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
 
-/* :root {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+:root {
+  --background: #fafafa;
+  --foreground: #262626;
+  --border: #dbdbdb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -15,6 +18,12 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
   min-height: 100vh;
-} */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

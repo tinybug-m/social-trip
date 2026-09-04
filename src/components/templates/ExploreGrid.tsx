@@ -1,7 +1,6 @@
 'use client'
 
-import { ReelItem } from '../molecules/ReelItem'
-import { Heart, MessageCircle } from 'lucide-react'
+import { Star, MessageCircle, Clapperboard } from 'lucide-react'
 import { Tables } from '@/src/lib/types/database'
 import { useRouter } from 'next/navigation'
 
@@ -14,42 +13,47 @@ const ExploreGrid = (props: ExploreProps) => {
   const router = useRouter()
 
   return (
-    <main className="max-w-4xl mx-auto p-1 md:p-4">
-      <div className="grid grid-cols-3 gap-1 auto-rows-[120px]">
+    <main className="p-0.5">
+      <div className="grid grid-cols-3 gap-0.5 auto-rows-[120px]">
         {feed.map((item) => {
-          const isReels = item?.type === 'reel'
+          const isReel = item?.type === 'reel'
 
           return (
             <div
               key={item?.id}
-              className={`relative group overflow-hidden cursor-pointer ${isReels ? 'row-span-2' : ''}`}
-              onClick={() => router.push('post/' + item?.id)}
+              className={`relative group overflow-hidden cursor-pointer bg-neutral-100 ${isReel ? 'row-span-2' : ''}`}
+              onClick={() => router.push(`/post/${item?.id}`)}
             >
-              {!isReels && (
+              {isReel ? (
+                <video
+                  src={item?.media_url}
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
                 <img
                   src={item?.media_url}
                   alt={item?.caption || 'Explore media'}
-                  className="w-full h-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-80"
+                  className="w-full h-full object-cover transition duration-300 group-hover:opacity-80"
                   loading="lazy"
                 />
               )}
-              {isReels && (
-                <>
-                  <ReelItem post={item} />
-                  <div className="absolute top-2 right-2 bg-zinc-200/60 text-black-600 text-[10px] px-1.5 py-0.5 rounded-md backdrop-blur-md border border-zinc-200">
-                    Reels
-                  </div>
-                </>
-              )}
-              // TODO: fix this later and make it a seprate component
-              <div className="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-6 space-x-reverse text-white font-semibold text-sm">
-                <div className="flex items-center space-x-1 space-x-reverse hover:text-red-500 transition-colors">
-                  <Heart className="w-5 h-5 fill-white" />
-                  <span>۰</span>
+
+              {isReel && (
+                <div className="absolute top-2 right-2 text-white drop-shadow">
+                  <Clapperboard className="w-4 h-4" fill="white" />
                 </div>
-                <div className="flex items-center space-x-1 space-x-reverse hover:text-blue-400 transition-colors">
+              )}
+
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-6 text-white font-semibold text-sm">
+                <div className="flex items-center gap-1.5">
+                  <Star className="w-5 h-5 fill-white" />
+                  <span>{item?.average_rating ?? 0}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
                   <MessageCircle className="w-5 h-5 fill-white" />
-                  <span>۰</span>
+                  <span>{item?.comments_count ?? 0}</span>
                 </div>
               </div>
             </div>

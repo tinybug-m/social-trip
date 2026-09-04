@@ -58,6 +58,14 @@ export function ReelsFeed({ initialPosts }: { initialPosts: Post[] }) {
     return () => observer.disconnect()
   }, [loadMore])
 
+  if (posts.length === 0) {
+    return (
+      <div className="h-full flex items-center justify-center text-neutral-400 text-sm px-8 text-center">
+        هنوز هیچ ریلزی منتشر نشده است. اولین ریلز را خودت بساز! 😉
+      </div>
+    )
+  }
+
   return (
     <div className="h-full overflow-y-scroll snap-y snap-mandatory">
       {posts.map((post) => (

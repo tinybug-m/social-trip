@@ -1,8 +1,7 @@
 import { supabaseClient } from '@/src/lib/supabase/client'
+import { PostType } from '@/src/lib/types/entities'
 
-// TODO: Replace temporary string type with PostType union.
-
-export const getPosts = async (type: string) => {
+export const getPosts = async (type: PostType) => {
   const { data, error } = await supabaseClient
     .from('posts')
     .select('*')

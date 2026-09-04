@@ -14,20 +14,20 @@ A social media platform for sharing posts, interacting with users, and building 
 
 - [x] Sign up with email/password
 - [x] Login
-- [ ] Logout
+- [x] Logout
 - [x] Persist session (middleware / SSR handling)
 
 ### Posts
 
-- [ ] Create post (text + optional image)
+- [x] Create post (image or video + caption + location)
 - [ ] Delete post (own posts only)
-- [ ] Fetch posts (basic feed)
+- [x] Fetch posts (basic feed)
 
 ### Feed
 
-- [ ] Feed TopNavBar (smooth navigation)
-- [ ] Reels Feed
-- [ ] Eplore Page
+- [x] Feed TopNavBar (smooth navigation)
+- [x] Reels Feed
+- [x] Explore Page
 
 ---
 
@@ -35,14 +35,23 @@ A social media platform for sharing posts, interacting with users, and building 
 
 ### Engagement
 
-- [ ] Like/unlike post
-- [ ] Comment on post
+- [x] Rate a post 1-5 stars (replaces like/unlike)
+- [x] Comment on post, with replies (one level deep)
+- [x] Like a comment
+- [x] Edit your own comment (shows "Edited")
+- [x] Delete your own comment
+- [x] Share post (native share sheet / copy link)
+
+All of the above needed three migration files in `supabase/migrations/`
+(ratings/comments/location, grants, then comment replies/likes/edit) —
+all three have been run and are confirmed working against the live DB.
 
 ### Profile
 
-- [ ] User profile page
-- [ ] Show user posts
-- [ ] Edit profile basics
+- [x] User profile page
+- [x] Show user posts
+- [x] Edit profile basics (username, bio, avatar photo — stored on the
+      Supabase auth user, no extra table needed)
 
 ---
 

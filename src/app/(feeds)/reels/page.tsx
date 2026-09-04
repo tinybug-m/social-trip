@@ -1,15 +1,10 @@
 import { ReelsFeed } from '@/src/components/molecules/ReelsFeed'
-import { Database } from '@/src/lib/types/database'
-import { createClient } from '@supabase/supabase-js'
+import { supabaseClient } from '@/src/lib/supabase/client'
 
-const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-)
 const PAGE_SIZE = 5
 
 export default async function Page() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('posts')
     .select('*')
     .eq('type', 'reel')
@@ -18,8 +13,8 @@ export default async function Page() {
     .limit(PAGE_SIZE)
 
   if (error) {
-    return null
+    console.error('Error fetching reels:', error.message)
   }
 
-  return <ReelsFeed initialPosts={data} />
+  return <ReelsFeed initialPosts={data ?? []} />
 }

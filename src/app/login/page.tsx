@@ -13,19 +13,17 @@ export default function AuthPage() {
   const register = useHandleForm(signUp)
 
   return (
-    <main className="min-h-screen w-full bg-slate-900 flex flex-col justify-center items-center px-4 select-none">
-      <div className="w-full max-w-md text-center mb-6">
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">
-          TinySocial
+    <main className="min-h-dvh w-full bg-white flex flex-col justify-center items-center px-8 select-none">
+      <div className="w-full max-w-sm text-center mb-6">
+        <h1
+          className="text-4xl italic text-[#262626] tracking-tight"
+          style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+        >
+          Mehrvila
         </h1>
-        <p className="text-sm text-slate-400 mt-2">
-          {view === 'login'
-            ? 'Welcome back, traveler!'
-            : 'Start your journey with us'}
-        </p>
       </div>
 
-      <div className="w-full max-w-md bg-slate-800/40 border border-slate-700/60 rounded-2xl shadow-2xl backdrop-blur-md p-6">
+      <div className="w-full max-w-sm border border-[#dbdbdb] rounded-sm p-6">
         <div className="transition-all duration-200">
           {view === 'login' ? (
             <LoginForm
@@ -41,34 +39,30 @@ export default function AuthPage() {
             />
           )}
         </div>
+      </div>
 
-        <div className="mt-6 pt-4 border-t border-slate-700/50 text-center">
-          {view === 'login' ? (
-            <p className="text-sm text-slate-400">
-              Don't have an account?{' '}
-              <button
-                onClick={() => {
-                  setView('register')
-                }}
-                className="text-blue-400 font-medium hover:text-blue-300 hover:underline transition-colors focus:outline-none"
-              >
-                Sign Up
-              </button>
-            </p>
-          ) : (
-            <p className="text-sm text-slate-400">
-              Already have an account?{' '}
-              <button
-                onClick={() => {
-                  setView('login')
-                }}
-                className="text-blue-400 font-medium hover:text-blue-300 hover:underline transition-colors focus:outline-none"
-              >
-                Sign In
-              </button>
-            </p>
-          )}
-        </div>
+      <div className="w-full max-w-sm border border-[#dbdbdb] rounded-sm mt-3 p-5 text-center">
+        {view === 'login' ? (
+          <p className="text-sm text-[#262626]">
+            Don&apos;t have an account?{' '}
+            <button
+              onClick={() => setView('register')}
+              className="text-blue-500 font-semibold hover:text-blue-600 focus:outline-none"
+            >
+              Sign up
+            </button>
+          </p>
+        ) : (
+          <p className="text-sm text-[#262626]">
+            Already have an account?{' '}
+            <button
+              onClick={() => setView('login')}
+              className="text-blue-500 font-semibold hover:text-blue-600 focus:outline-none"
+            >
+              Log in
+            </button>
+          </p>
+        )}
       </div>
     </main>
   )

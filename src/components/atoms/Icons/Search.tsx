@@ -13,12 +13,12 @@ export const SearchIcon = ({ size = 24, ...props }: IconProps) => (
       cx="8.33337"
       cy="8.33331"
       r="6.6"
-      stroke="black"
+      stroke="currentColor"
       strokeWidth="1.8"
     />
     <path
       d="M18.3334 18.3333L13.3334 13.3333"
-      stroke="black"
+      stroke="currentColor"
       strokeWidth="1.8"
       strokeLinecap="round"
     />

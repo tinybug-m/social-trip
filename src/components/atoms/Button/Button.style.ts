@@ -13,7 +13,7 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: ['text-white', 'bg-blue-600', 'hover:bg-blue-700'],
+        primary: ['text-white', 'bg-blue-500', 'hover:bg-blue-600'],
         secondary: ['bg-gray-200', 'text-black', 'hover:bg-gray-300'],
       },
       size: {

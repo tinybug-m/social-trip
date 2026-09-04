@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClientServer } from '@/src/lib/supabase/server'
 
 export const updateSession = async (request: NextRequest) => {
-  let response = NextResponse.next()
+  const response = NextResponse.next()
 
   const supabase = createClientServer({
     cookies: {

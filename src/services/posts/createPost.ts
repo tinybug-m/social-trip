@@ -1,7 +1,14 @@
 import { CreatePostData } from '@/src/components/organisms/CreatePostForm'
 import { supabaseClient } from '@/src/lib/supabase/client'
 
-export const createPost = async ({ file, caption, type }: CreatePostData) => {
+export const createPost = async ({
+  file,
+  caption,
+  location,
+  locationLat,
+  locationLng,
+  type,
+}: CreatePostData) => {
   const {
     data: { user },
     error: userError,
@@ -11,7 +18,7 @@ export const createPost = async ({ file, caption, type }: CreatePostData) => {
     throw new Error(userError.message)
   }
   if (!user) {
-    throw new Error('Login required') // Todo : we shouldn't redirect to login then ? maybe in higher level
+    throw new Error('Login required')
   }
   if (!file) {
     throw new Error('File is required')
@@ -28,7 +35,6 @@ export const createPost = async ({ file, caption, type }: CreatePostData) => {
     })
 
   if (uploadError) {
-    console.log(uploadError)
     throw uploadError
   }
 
@@ -45,6 +51,9 @@ export const createPost = async ({ file, caption, type }: CreatePostData) => {
         user_image: user.user_metadata?.avatar_url || null,
         media_url: publicUrl,
         caption: caption,
+        location: location || null,
+        location_lat: locationLat,
+        location_lng: locationLng,
         type: type,
       },
     ])

@@ -36,14 +36,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 w-full max-w-md p-6 rounded-lg shadow-xl"
+      noValidate
+      className="space-y-4 w-full"
     >
-      <h2 className="text-2xl font-bold text-center text-slate-100 mb-4">
-        Create Account
-      </h2>
-
       {serverError && (
-        <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-md text-sm text-center">
+        <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm text-center">
           {serverError}
         </div>
       )}
@@ -81,7 +78,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
       <div className="pt-2">
         <Button type="submit" isLoading={isPending}>
-          Get Started
+          Sign up
         </Button>
       </div>
     </form>

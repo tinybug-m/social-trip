@@ -5,10 +5,9 @@ import { Upload, X, FileImage, Film } from 'lucide-react'
 
 interface FileUploadProps {
   onChange: (file: File | null) => void
-  error?: string
 }
 
-const File = ({ onChange, error }: FileUploadProps) => {
+const File = ({ onChange }: FileUploadProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [fileType, setFileType] = useState<'image' | 'video' | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -59,7 +58,7 @@ const File = ({ onChange, error }: FileUploadProps) => {
     <div
       onClick={() => !previewUrl && fileInputRef.current?.click()}
       className={`relative border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center min-h-[220px] transition-all
-          ${previewUrl ? 'border-zinc-700 bg-zinc-900' : 'border-zinc-700 bg-zinc-800/50 hover:bg-zinc-800 hover:border-blue-500 cursor-pointer'}
+          ${previewUrl ? 'border-[#dbdbdb] bg-neutral-50' : 'border-[#dbdbdb] bg-neutral-50 hover:bg-neutral-100 hover:border-blue-400 cursor-pointer'}
         `}
     >
       {/* اینپوت مخفی فایل */}
@@ -101,13 +100,13 @@ const File = ({ onChange, error }: FileUploadProps) => {
       ) : (
         /* حالت دوم: هنوز فایلی انتخاب نشده و باکس آپلود خالی است */
         <div className="flex flex-col items-center gap-3 text-center pointer-events-none">
-          <div className="p-3 bg-zinc-800 rounded-full text-zinc-400">
-            <Upload className="w-6 h-6 text-zinc-400" />
+          <div className="p-3 bg-neutral-200 rounded-full text-neutral-500">
+            <Upload className="w-6 h-6 text-neutral-500" />
           </div>
-          <div className="text-sm text-zinc-300 font-medium">
+          <div className="text-sm text-neutral-700 font-medium">
             برای آپلود کلیک کنید یا فایل را اینجا رها کنید
           </div>
-          <div className="text-xs text-zinc-500 flex gap-3 mt-1">
+          <div className="text-xs text-neutral-500 flex gap-3 mt-1">
             <span className="flex items-center gap-1">
               <FileImage className="w-3 h-3" /> عکس (PNG, JPG)
             </span>

@@ -7,11 +7,11 @@ interface Inputprops extends InputHTMLAttributes<HTMLInputElement> {
 const Input = ({ error, className, ...props }: Inputprops) => {
   return (
     <input
-      className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 transition-all ${
+      className={`w-full px-3 py-2 text-sm border rounded-sm bg-[#fafafa] focus:outline-none focus:ring-1 transition-all ${
         error
           ? 'border-red-500 focus:ring-red-200'
-          : 'border-gray-300 focus:ring-blue-200 focus:border-blue-500'
-      } ${className}`}
+          : 'border-[#dbdbdb] focus:ring-neutral-300 focus:border-neutral-400'
+      } ${className ?? ''}`}
       {...props}
     />
   )

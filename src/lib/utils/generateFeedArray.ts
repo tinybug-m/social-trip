@@ -3,10 +3,10 @@ import { Post } from '@/src/lib/types/entities'
 export const generateFeedArray = async (reels: Post[], posts: Post[]) => {
   const pattern = ['post', 'post', 'reel']
 
-  let reelsQueue = [...reels]
-  let postsQueue = [...posts]
+  const reelsQueue = [...reels]
+  const postsQueue = [...posts]
 
-  let feed = []
+  const feed = []
 
   while (reelsQueue.length && postsQueue.length >= 2) {
     for (const slot of pattern) {

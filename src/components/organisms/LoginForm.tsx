@@ -36,12 +36,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 w-full max-w-md p-6 rounded-lg shadow-md"
+      noValidate
+      className="space-y-4 w-full"
     >
-      <h2 className="text-2xl font-bold text-center text-white-800 mb-4">
-        Welcome Back
-      </h2>
-
       {serverError && (
         <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm text-center">
           {serverError}
@@ -66,7 +63,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
       <div className="pt-2">
         <Button type="submit" isLoading={isPending}>
-          Sign In
+          Log in
         </Button>
       </div>
     </form>
