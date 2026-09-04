@@ -23,5 +23,18 @@ export const signUp = async (data: RegisterFormData) => {
 
   if (error) throw error
 
+  if (res.user) {
+    const { error: profileError } = await supabaseClient
+      .from('profiles')
+      .upsert({
+        id: res.user.id,
+        username: data.name,
+        updated_at: new Date().toISOString(),
+      })
+
+    if (profileError)
+      console.error('Failed to create profile:', profileError.message)
+  }
+
   return res
 }

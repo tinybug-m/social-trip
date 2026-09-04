@@ -8,17 +8,21 @@ export const generateFeedArray = async (reels: Post[], posts: Post[]) => {
 
   const feed = []
 
-  while (reelsQueue.length && postsQueue.length >= 2) {
+  while (reelsQueue.length && postsQueue.length) {
     for (const slot of pattern) {
       if (slot == 'reel') {
-        const reel = reelsQueue.shift()!
-        feed.push(reel)
+        if (!reelsQueue.length) continue
+        feed.push(reelsQueue.shift()!)
       } else {
-        const post = postsQueue.shift()!
-        feed.push(post)
+        if (!postsQueue.length) continue
+        feed.push(postsQueue.shift()!)
       }
     }
   }
+
+  feed.push(...reelsQueue, ...postsQueue)
+  reelsQueue.length = 0
+  postsQueue.length = 0
 
   return { feed, reelsQueue, postsQueue }
 }
