@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Heart, MessageCircle, ChevronLeft, Menu } from 'lucide-react'
 import { SearchIcon } from '../atoms/Icons'
+import { useUnreadMessagesCount } from '@/src/hooks/useUnreadMessagesCount'
 
 const BACK_SCREENS: Record<string, { title: string; backHref: string }> = {
   '/create-post': { title: 'New post', backHref: '/feed' },
@@ -13,6 +14,7 @@ const BACK_SCREENS: Record<string, { title: string; backHref: string }> = {
 
 const TopNavBar = () => {
   const pathname = usePathname()
+  const unreadCount = useUnreadMessagesCount()
 
   if (pathname === '/reels') {
     return (
@@ -81,8 +83,11 @@ const TopNavBar = () => {
         <Link href="/profile" className="text-black">
           <Heart size={24} strokeWidth={1.8} />
         </Link>
-        <Link href="/messages" className="text-black">
+        <Link href="/messages" className="relative text-black">
           <MessageCircle size={24} strokeWidth={1.8} />
+          {unreadCount > 0 && (
+            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border border-white" />
+          )}
         </Link>
       </div>
     </div>

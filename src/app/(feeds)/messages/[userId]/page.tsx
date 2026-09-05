@@ -39,6 +39,13 @@ export default async function ChatThreadPage({ params }: Props) {
 
   if (!otherProfile) notFound()
 
+  await supabase
+    .from('messages')
+    .update({ read_at: new Date().toISOString() })
+    .eq('sender_id', userId)
+    .eq('receiver_id', user.id)
+    .is('read_at', null)
+
   return (
     <>
       <div className="sticky top-0 z-40 bg-white border-b border-[#dbdbdb] h-12 flex items-center px-3 gap-3 shrink-0">

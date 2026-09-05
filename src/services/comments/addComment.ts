@@ -1,4 +1,5 @@
 import { supabaseClient } from '@/src/lib/supabase/client'
+import { notifyUser } from '@/src/lib/utils/notifyUser'
 
 export const addComment = async (
   postId: string,
@@ -27,6 +28,22 @@ export const addComment = async (
     .single()
 
   if (error) throw error
+
+  const { data: post } = await supabaseClient
+    .from('posts')
+    .select('user_id')
+    .eq('id', postId)
+    .maybeSingle()
+
+  if (post?.user_id && post.user_id !== user.id) {
+    const commenterName =
+      user.user_metadata?.username || user.email?.split('@')[0]
+    notifyUser(post.user_id, {
+      title: `${commenterName || 'Someone'} commented on your post`,
+      body: content,
+      url: `/post/${postId}`,
+    })
+  }
 
   return data
 }

@@ -2,6 +2,7 @@
 
 import BottomNavigation from '@/src/components/molecules/BottomNavigation'
 import TopNavBar from '@/src/components/molecules/TopNavBar'
+import { EnableNotificationsBanner } from '@/src/components/molecules/EnableNotificationsBanner'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
@@ -34,6 +35,7 @@ const FeedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col min-h-dvh bg-white">
       <TopNavBar />
+      <EnableNotificationsBanner />
       <div className="flex-1 pb-2">{children}</div>
       {!hideBottomNav && <BottomNavigation />}
     </div>

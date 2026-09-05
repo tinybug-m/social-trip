@@ -1,4 +1,5 @@
 import { supabaseClient } from '@/src/lib/supabase/client'
+import { notifyUser } from '@/src/lib/utils/notifyUser'
 
 export const ratePost = async (postId: string, rating: number) => {
   const {
@@ -17,6 +18,21 @@ export const ratePost = async (postId: string, rating: number) => {
     )
 
   if (error) throw error
+
+  const { data: post } = await supabaseClient
+    .from('posts')
+    .select('user_id')
+    .eq('id', postId)
+    .maybeSingle()
+
+  if (post?.user_id && post.user_id !== user.id) {
+    const raterName = user.user_metadata?.username || user.email?.split('@')[0]
+    notifyUser(post.user_id, {
+      title: 'New rating',
+      body: `${raterName || 'Someone'} rated your post ${rating}/5`,
+      url: `/post/${postId}`,
+    })
+  }
 }
 
 export const getMyRating = async (postId: string) => {
