@@ -11,7 +11,7 @@ export default async function HomeFeed() {
   if (posts.length === 0) {
     return (
       <div className="text-center py-20 text-neutral-500">
-        هنوز هیچ پستی منتشر نشده است. اولین پست را خودت بساز! 😉
+        No posts yet. Be the first to share one! 😉
       </div>
     )
   }

@@ -19,7 +19,7 @@ export default async function ExplorePage() {
     <div className="font-sans antialiased">
       {feed.length === 0 ? (
         <div className="text-center py-20 text-neutral-500">
-          هنوز هیچ پستی منتشر نشده است. اولین پست را خودت بساز! 😉
+          No posts yet. Be the first to share one! 😉
         </div>
       ) : (
         <ExploreGrid feed={feed} />

@@ -67,13 +67,13 @@ const CreatePostForm = () => {
 
       <div className="flex flex-col gap-1.5 w-full">
         <label className="text-sm font-semibold text-neutral-700">
-          نوع محتوا (Content type)
+          Content type
         </label>
         <div className="grid grid-cols-2 gap-2 p-1 rounded-lg bg-neutral-100">
           {(
             [
-              { value: 'post', label: 'پست (Post)', Icon: ImageIcon },
-              { value: 'reel', label: 'ریلز (Reel)', Icon: Clapperboard },
+              { value: 'post', label: 'Post', Icon: ImageIcon },
+              { value: 'reel', label: 'Reel', Icon: Clapperboard },
             ] as const
           ).map(({ value, label, Icon }) => (
             <button
@@ -95,9 +95,7 @@ const CreatePostForm = () => {
 
       <div className="flex flex-col gap-1.5 w-full">
         <label className="text-sm font-semibold text-neutral-700">
-          {postType === 'reel'
-            ? 'فایل ویدیو (Video file)'
-            : 'فایل عکس (Photo file)'}
+          {postType === 'reel' ? 'Video file' : 'Photo file'}
         </label>
         <Controller
           control={control}
@@ -119,11 +117,11 @@ const CreatePostForm = () => {
 
       <div className="flex flex-col gap-1 w-full">
         <label className="text-sm font-semibold text-neutral-700">
-          کپشن (Caption)
+          Caption
         </label>
         <textarea
           {...register('caption')}
-          placeholder="کپشن خود را بنویسید..."
+          placeholder="Write your caption..."
           rows={4}
           className="w-full p-2.5 rounded-lg border border-[#dbdbdb] bg-white text-[#262626] focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 placeholder-neutral-400"
           required
@@ -132,7 +130,7 @@ const CreatePostForm = () => {
 
       <div className="flex flex-col gap-1 w-full">
         <label className="text-sm font-semibold text-neutral-700">
-          موقعیت مکانی (Location)
+          Location
         </label>
         {location ? (
           <div className="flex items-center gap-2 p-2.5 rounded-lg border border-[#dbdbdb] bg-white">
@@ -153,7 +151,7 @@ const CreatePostForm = () => {
             className="flex items-center gap-2 p-2.5 rounded-lg border border-[#dbdbdb] bg-white text-neutral-500 hover:bg-neutral-50 text-sm"
           >
             <MapPin size={16} />
-            روی نقشه انتخاب کن (Add a real place)
+            Add a real place
           </button>
         )}
       </div>
@@ -170,7 +168,7 @@ const CreatePostForm = () => {
           />
         )}
         <span className="relative">
-          {form.pending ? `در حال آپلود... ${form.progress}%` : 'انتشار پست'}
+          {form.pending ? `Uploading... ${form.progress}%` : 'Share post'}
         </span>
       </button>
 

@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { registerSchema, RegisterFormData } from '../../schemas/authSchema' // اسکیمای متفاوت
+import { registerSchema, RegisterFormData } from '../../schemas/authSchema'
 import FormField from '../molecules/FormField'
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
