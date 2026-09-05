@@ -7,7 +7,6 @@ export const createPost = async ({
   location,
   locationLat,
   locationLng,
-  type,
 }: CreatePostData) => {
   const {
     data: { user },
@@ -24,6 +23,7 @@ export const createPost = async ({
     throw new Error('File is required')
   }
 
+  const type = file.type.startsWith('video/') ? 'reel' : 'post'
   const fileExt = file.name.split('.').pop()
   const fileName = `${user.id}-${Date.now()}.${fileExt}`
 

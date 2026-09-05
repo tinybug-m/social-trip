@@ -1,16 +1,30 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
-import { Upload, X, FileImage, Film } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react'
+import { X, FileImage, Film } from 'lucide-react'
 
 interface FileUploadProps {
   onChange: (file: File | null) => void
+  expectedType: 'image' | 'video'
 }
 
-const File = ({ onChange }: FileUploadProps) => {
+const File = ({ onChange, expectedType }: FileUploadProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [fileType, setFileType] = useState<'image' | 'video' | null>(null)
+  const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const previewUrlRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    previewUrlRef.current = previewUrl
+  }, [previewUrl])
+
+  // پاک کردن URL موقت هنگام خروج کامپوننت از صفحه (مثلاً تغییر نوع پست)
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current)
+    }
+  }, [])
 
   // ۱. مدیریت انتخاب فایل و ساخت پیش‌نمایش موقت
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,14 +33,29 @@ const File = ({ onChange }: FileUploadProps) => {
     if (!file) return
 
     // مشخص کردن نوع فایل (عکس یا ویدیو)
+    let detectedType: 'image' | 'video'
     if (file.type.startsWith('image/')) {
-      setFileType('image')
+      detectedType = 'image'
     } else if (file.type.startsWith('video/')) {
-      setFileType('video')
+      detectedType = 'video'
     } else {
-      alert('لطفاً فقط فایل عکس یا ویدیو انتخاب کنید!')
+      setFileError('لطفاً فقط فایل عکس یا ویدیو انتخاب کنید!')
+      if (fileInputRef.current) fileInputRef.current.value = ''
       return
     }
+
+    if (detectedType !== expectedType) {
+      setFileError(
+        expectedType === 'image'
+          ? 'برای پست فقط می‌توانید عکس انتخاب کنید. برای ویدیو، ریلز را انتخاب کنید.'
+          : 'برای ریلز فقط می‌توانید ویدیو انتخاب کنید. برای عکس، پست را انتخاب کنید.',
+      )
+      if (fileInputRef.current) fileInputRef.current.value = ''
+      return
+    }
+
+    setFileError(null)
+    setFileType(detectedType)
 
     // تولید یک URL موقت در مرورگر برای نمایش Preview
     const objectUrl = URL.createObjectURL(file)
@@ -47,6 +76,7 @@ const File = ({ onChange }: FileUploadProps) => {
 
     setPreviewUrl(null)
     setFileType(null)
+    setFileError(null)
     onChange(null)
 
     if (fileInputRef.current) {
@@ -55,66 +85,78 @@ const File = ({ onChange }: FileUploadProps) => {
   }
 
   return (
-    <div
-      onClick={() => !previewUrl && fileInputRef.current?.click()}
-      className={`relative border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center min-h-[220px] transition-all
+    <div>
+      <div
+        onClick={() => !previewUrl && fileInputRef.current?.click()}
+        className={`relative border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center min-h-[220px] transition-all
           ${previewUrl ? 'border-[#dbdbdb] bg-neutral-50' : 'border-[#dbdbdb] bg-neutral-50 hover:bg-neutral-100 hover:border-blue-400 cursor-pointer'}
         `}
-    >
-      {/* اینپوت مخفی فایل */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        accept="image/*,video/*"
-        className="hidden"
-      />
+      >
+        {/* اینپوت مخفی فایل */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept={expectedType === 'image' ? 'image/*' : 'video/*'}
+          className="hidden"
+        />
 
-      {/* حالت اول: فایل انتخاب شده و پیش‌نمایش نشان داده می‌شود */}
-      {previewUrl ? (
-        <div className="relative w-full h-full max-h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
-          {/* دکمه حذف فایل */}
-          <button
-            onClick={handleRemoveFile}
-            className="absolute top-2 right-2 bg-black/70 hover:bg-red-600 p-1.5 rounded-full text-white z-10 transition-colors shadow-md"
-            title="حذف فایل"
-          >
-            <X className="w-4 h-4" />
-          </button>
+        {/* حالت اول: فایل انتخاب شده و پیش‌نمایش نشان داده می‌شود */}
+        {previewUrl ? (
+          <div className="relative w-full h-full max-h-[300px] flex items-center justify-center overflow-hidden rounded-lg">
+            {/* دکمه حذف فایل */}
+            <button
+              onClick={handleRemoveFile}
+              className="absolute top-2 right-2 bg-black/70 hover:bg-red-600 p-1.5 rounded-full text-white z-10 transition-colors shadow-md"
+              title="حذف فایل"
+            >
+              <X className="w-4 h-4" />
+            </button>
 
-          {/* رندر بر اساس نوع فایل */}
-          {fileType === 'image' ? (
-            <img
-              src={previewUrl}
-              alt="Preview"
-              className="w-full h-full object-contain max-h-[280px]"
-            />
-          ) : (
-            <video
-              src={previewUrl}
-              controls
-              className="w-full h-full object-contain max-h-[280px]"
-            />
-          )}
-        </div>
-      ) : (
-        /* حالت دوم: هنوز فایلی انتخاب نشده و باکس آپلود خالی است */
-        <div className="flex flex-col items-center gap-3 text-center pointer-events-none">
-          <div className="p-3 bg-neutral-200 rounded-full text-neutral-500">
-            <Upload className="w-6 h-6 text-neutral-500" />
+            {/* رندر بر اساس نوع فایل */}
+            {fileType === 'image' ? (
+              <img
+                src={previewUrl}
+                alt="Preview"
+                className="w-full h-full object-contain max-h-[280px]"
+              />
+            ) : (
+              <video
+                src={previewUrl}
+                controls
+                className="w-full h-full object-contain max-h-[280px]"
+              />
+            )}
           </div>
-          <div className="text-sm text-neutral-700 font-medium">
-            برای آپلود کلیک کنید یا فایل را اینجا رها کنید
+        ) : (
+          /* حالت دوم: هنوز فایلی انتخاب نشده و باکس آپلود خالی است */
+          <div className="flex flex-col items-center gap-3 text-center pointer-events-none">
+            <div className="p-3 bg-neutral-200 rounded-full text-neutral-500">
+              {expectedType === 'image' ? (
+                <FileImage className="w-6 h-6 text-neutral-500" />
+              ) : (
+                <Film className="w-6 h-6 text-neutral-500" />
+              )}
+            </div>
+            <div className="text-sm text-neutral-700 font-medium">
+              برای آپلود کلیک کنید یا فایل را اینجا رها کنید
+            </div>
+            <div className="text-xs text-neutral-500 flex gap-1">
+              {expectedType === 'image' ? (
+                <span className="flex items-center gap-1">
+                  <FileImage className="w-3 h-3" /> عکس (PNG, JPG)
+                </span>
+              ) : (
+                <span className="flex items-center gap-1">
+                  <Film className="w-3 h-3" /> ویدیو (MP4, MOV)
+                </span>
+              )}
+            </div>
           </div>
-          <div className="text-xs text-neutral-500 flex gap-3 mt-1">
-            <span className="flex items-center gap-1">
-              <FileImage className="w-3 h-3" /> عکس (PNG, JPG)
-            </span>
-            <span className="flex items-center gap-1">
-              <Film className="w-3 h-3" /> ویدیو (MP4, MOV)
-            </span>
-          </div>
-        </div>
+        )}
+      </div>
+      {fileError && (
+        <span className="text-xs text-red-500 mt-1 block">{fileError}</span>
       )}
     </div>
   )
