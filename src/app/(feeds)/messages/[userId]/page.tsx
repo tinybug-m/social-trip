@@ -1,5 +1,6 @@
 import { createClientServer } from '@/src/lib/supabase/server'
 import { cookies } from 'next/headers'
+import { after } from 'next/server'
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
@@ -39,12 +40,14 @@ export default async function ChatThreadPage({ params }: Props) {
 
   if (!otherProfile) notFound()
 
-  await supabase
-    .from('messages')
-    .update({ read_at: new Date().toISOString() })
-    .eq('sender_id', userId)
-    .eq('receiver_id', user.id)
-    .is('read_at', null)
+  after(() =>
+    supabase
+      .from('messages')
+      .update({ read_at: new Date().toISOString() })
+      .eq('sender_id', userId)
+      .eq('receiver_id', user.id)
+      .is('read_at', null),
+  )
 
   return (
     <>

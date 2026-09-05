@@ -1,14 +1,13 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Search } from 'lucide-react'
 import { supabaseClient } from '@/src/lib/supabase/client'
 import { Profile } from '@/src/lib/types/entities'
 import Avatar from '@/src/components/atoms/Avatar'
 
 export function NewMessageSearch() {
-  const router = useRouter()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Profile[]>([])
   const [searching, setSearching] = useState(false)
@@ -73,9 +72,9 @@ export function NewMessageSearch() {
             </p>
           )}
           {results.map((profile) => (
-            <button
+            <Link
               key={profile.id}
-              onClick={() => router.push(`/messages/${profile.id}`)}
+              href={`/messages/${profile.id}`}
               className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-neutral-50"
             >
               <Avatar
@@ -84,7 +83,7 @@ export function NewMessageSearch() {
                 size={36}
               />
               <span className="text-sm font-medium">{profile.username}</span>
-            </button>
+            </Link>
           ))}
         </div>
       )}

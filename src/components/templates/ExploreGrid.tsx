@@ -2,7 +2,7 @@
 
 import { Star, MessageCircle, Clapperboard } from 'lucide-react'
 import { Tables } from '@/src/lib/types/database'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type ExploreProps = {
   feed: Tables<'posts'>[]
@@ -10,7 +10,6 @@ type ExploreProps = {
 
 const ExploreGrid = (props: ExploreProps) => {
   const { feed } = props
-  const router = useRouter()
 
   return (
     <main className="p-0.5">
@@ -19,10 +18,10 @@ const ExploreGrid = (props: ExploreProps) => {
           const isReel = item?.type === 'reel'
 
           return (
-            <div
+            <Link
               key={item?.id}
-              className={`relative group overflow-hidden cursor-pointer bg-neutral-100 ${isReel ? 'row-span-2' : ''}`}
-              onClick={() => router.push(`/post/${item?.id}`)}
+              href={`/post/${item?.id}`}
+              className={`relative group overflow-hidden cursor-pointer bg-neutral-100 block ${isReel ? 'row-span-2' : ''}`}
             >
               {isReel ? (
                 <video
@@ -56,7 +55,7 @@ const ExploreGrid = (props: ExploreProps) => {
                   <span>{item?.comments_count ?? 0}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
