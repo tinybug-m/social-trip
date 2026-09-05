@@ -161,9 +161,17 @@ const CreatePostForm = () => {
       <button
         type="submit"
         disabled={form.pending || !file}
-        className="w-full py-2.5 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold rounded-lg transition-all"
+        className="relative w-full py-2.5 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold rounded-lg transition-all overflow-hidden"
       >
-        {form.pending ? 'در حال آپلود و انتشار...' : 'انتشار پست'}
+        {form.pending && (
+          <span
+            className="absolute inset-y-0 left-0 bg-blue-600 transition-all duration-150"
+            style={{ width: `${form.progress}%` }}
+          />
+        )}
+        <span className="relative">
+          {form.pending ? `در حال آپلود... ${form.progress}%` : 'انتشار پست'}
+        </span>
       </button>
 
       {showPicker && (

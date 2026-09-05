@@ -3,17 +3,21 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export function useHandleForm<T>(action: (data: T) => Promise<unknown>) {
+export function useHandleForm<T>(
+  action: (data: T, onProgress?: (percent: number) => void) => Promise<unknown>,
+) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+  const [progress, setProgress] = useState(0)
 
   const submit = async (data: T) => {
     setError(null)
     setPending(true)
+    setProgress(0)
 
     try {
-      await action(data)
+      await action(data, setProgress)
       router.push('/')
       router.refresh()
     } catch (e) {
@@ -23,5 +27,5 @@ export function useHandleForm<T>(action: (data: T) => Promise<unknown>) {
     }
   }
 
-  return { submit, error, pending }
+  return { submit, error, pending, progress }
 }

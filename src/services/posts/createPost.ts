@@ -1,13 +1,11 @@
 import { CreatePostData } from '@/src/components/organisms/CreatePostForm'
 import { supabaseClient } from '@/src/lib/supabase/client'
+import { uploadFileWithProgress } from '@/src/lib/utils/uploadFileWithProgress'
 
-export const createPost = async ({
-  file,
-  caption,
-  location,
-  locationLat,
-  locationLng,
-}: CreatePostData) => {
+export const createPost = async (
+  { file, caption, location, locationLat, locationLng }: CreatePostData,
+  onProgress?: (percent: number) => void,
+) => {
   const {
     data: { user },
     error: userError,
@@ -23,20 +21,25 @@ export const createPost = async ({
     throw new Error('File is required')
   }
 
+  const {
+    data: { session },
+  } = await supabaseClient.auth.getSession()
+
+  if (!session) {
+    throw new Error('Login required')
+  }
+
   const type = file.type.startsWith('video/') ? 'reel' : 'post'
   const fileExt = file.name.split('.').pop()
   const fileName = `${user.id}-${Date.now()}.${fileExt}`
 
-  const { error: uploadError } = await supabaseClient.storage
-    .from('posts')
-    .upload(fileName, file, {
-      cacheControl: '3600',
-      upsert: false,
-    })
-
-  if (uploadError) {
-    throw uploadError
-  }
+  await uploadFileWithProgress(
+    'posts',
+    fileName,
+    file,
+    session.access_token,
+    onProgress ?? (() => {}),
+  )
 
   const {
     data: { publicUrl },
