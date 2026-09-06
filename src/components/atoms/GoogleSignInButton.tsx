@@ -1,5 +1,7 @@
 'use client'
 
+import Button from './Button'
+
 interface GoogleSignInButtonProps {
   onClick: () => void
   isLoading?: boolean
@@ -10,11 +12,12 @@ const GoogleSignInButton = ({
   isLoading,
 }: GoogleSignInButtonProps) => {
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
       onClick={onClick}
-      disabled={isLoading}
-      className="w-full flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-md border border-[#dbdbdb] bg-white hover:bg-neutral-50 disabled:opacity-50 text-sm font-semibold text-[#262626] transition-colors"
+      isLoading={isLoading}
+      className="flex items-center justify-center gap-2.5 text-sm"
     >
       <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
         <path
@@ -35,7 +38,7 @@ const GoogleSignInButton = ({
         />
       </svg>
       {isLoading ? 'Connecting...' : 'Continue with Google'}
-    </button>
+    </Button>
   )
 }
 

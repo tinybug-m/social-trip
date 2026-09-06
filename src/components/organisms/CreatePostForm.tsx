@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { MapPin, X, Image as ImageIcon, Clapperboard } from 'lucide-react'
 import { createPost } from '@/src/services/posts/createPost'
 import { Controller, useForm } from 'react-hook-form'
+import Button from '../atoms/Button'
 import File from '../atoms/File'
 import { useHandleForm } from '@/src/hooks/useHandleForm'
 import { PlacePicker } from './PlacePicker'
@@ -156,10 +157,10 @@ const CreatePostForm = () => {
         )}
       </div>
 
-      <button
+      <Button
         type="submit"
         disabled={form.pending || !file}
-        className="relative w-full py-2.5 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold rounded-lg transition-all overflow-hidden"
+        className="relative overflow-hidden"
       >
         {form.pending && (
           <span
@@ -170,7 +171,7 @@ const CreatePostForm = () => {
         <span className="relative">
           {form.pending ? `Uploading... ${form.progress}%` : 'Share post'}
         </span>
-      </button>
+      </Button>
 
       {showPicker && (
         <PlacePicker

@@ -1,18 +1,13 @@
 import { supabaseClient } from '@/src/lib/supabase/client'
 import { notifyUser } from '@/src/lib/utils/notifyUser'
+import { getCurrentUser } from '@/src/services/user/getCurrentUser'
 
 export const addComment = async (
   postId: string,
   content: string,
   parentCommentId?: string | null,
 ) => {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabaseClient.auth.getUser()
-
-  if (userError) throw new Error(userError.message)
-  if (!user) throw new Error('Login required')
+  const user = await getCurrentUser()
 
   const { data, error } = await supabaseClient
     .from('comments')

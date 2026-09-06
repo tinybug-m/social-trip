@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, Search, MapPin } from 'lucide-react'
 import { LeafletMap } from '@/src/components/molecules/LeafletMap'
+import Button from '@/src/components/atoms/Button'
 import {
   searchPlaces,
   reverseGeocode,
@@ -140,13 +141,13 @@ export function PlacePicker({
             <span className="line-clamp-2">{selected.name}</span>
           </p>
         )}
-        <button
+        <Button
+          type="button"
           onClick={() => selected && onSelect(selected)}
           disabled={!selected}
-          className="w-full py-2.5 rounded-lg bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold transition-all"
         >
           Use this location
-        </button>
+        </Button>
       </div>
     </div>
   )

@@ -78,7 +78,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
       <div className="pt-2">
         <Button type="submit" isLoading={isPending}>
-          Sign up
+          {isPending ? 'Signing up...' : 'Sign up'}
         </Button>
       </div>
     </form>

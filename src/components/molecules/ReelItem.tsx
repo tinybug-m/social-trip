@@ -16,7 +16,7 @@ import { linkifyCaption } from '@/src/lib/utils/linkifyCaption'
 import { useRatePost } from '@/src/hooks/useRatePost'
 import Avatar from '@/src/components/atoms/Avatar'
 import StarRating from '@/src/components/atoms/StarRating'
-import { ShareButton } from '@/src/components/atoms/ShareButton'
+import ShareButton from '@/src/components/atoms/ShareButton'
 
 export function ReelItem({ post }: { post: Post }) {
   const videoRef = useRef<HTMLVideoElement | null>(null)

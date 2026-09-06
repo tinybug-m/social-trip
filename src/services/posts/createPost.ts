@@ -1,22 +1,14 @@
 import { CreatePostData } from '@/src/components/organisms/CreatePostForm'
 import { supabaseClient } from '@/src/lib/supabase/client'
 import { uploadFileWithProgress } from '@/src/lib/utils/uploadFileWithProgress'
+import { getCurrentUser } from '@/src/services/user/getCurrentUser'
 
 export const createPost = async (
   { file, caption, location, locationLat, locationLng }: CreatePostData,
   onProgress?: (percent: number) => void,
 ) => {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabaseClient.auth.getUser()
+  const user = await getCurrentUser()
 
-  if (userError) {
-    throw new Error(userError.message)
-  }
-  if (!user) {
-    throw new Error('Login required')
-  }
   if (!file) {
     throw new Error('File is required')
   }

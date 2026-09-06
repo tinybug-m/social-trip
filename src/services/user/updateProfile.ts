@@ -1,4 +1,5 @@
 import { supabaseClient } from '@/src/lib/supabase/client'
+import { getCurrentUser } from '@/src/services/user/getCurrentUser'
 
 export type UpdateProfileData = {
   username: string
@@ -11,13 +12,7 @@ export const updateProfile = async ({
   bio,
   avatarFile,
 }: UpdateProfileData) => {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabaseClient.auth.getUser()
-
-  if (userError) throw new Error(userError.message)
-  if (!user) throw new Error('Login required')
+  const user = await getCurrentUser()
 
   let avatarUrl = user.user_metadata?.avatar_url ?? null
 

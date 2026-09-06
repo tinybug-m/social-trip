@@ -15,6 +15,13 @@ export const buttonVariants = cva(
       variant: {
         primary: ['text-white', 'bg-blue-500', 'hover:bg-blue-600'],
         secondary: ['bg-gray-200', 'text-black', 'hover:bg-gray-300'],
+        outline: [
+          'bg-white',
+          'text-[#262626]',
+          'border',
+          'border-[#dbdbdb]',
+          'hover:bg-neutral-50',
+        ],
       },
       size: {
         normal: ['py-2', 'px-4'],

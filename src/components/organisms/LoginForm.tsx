@@ -63,7 +63,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
       <div className="pt-2">
         <Button type="submit" isLoading={isPending}>
-          Log in
+          {isPending ? 'Logging in...' : 'Log in'}
         </Button>
       </div>
     </form>

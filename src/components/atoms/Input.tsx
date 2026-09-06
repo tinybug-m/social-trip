@@ -1,10 +1,10 @@
 import { InputHTMLAttributes } from 'react'
 
-interface Inputprops extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean
 }
 
-const Input = ({ error, className, ...props }: Inputprops) => {
+const Input = ({ error, className, ...props }: InputProps) => {
   return (
     <input
       className={`w-full px-3 py-2 text-sm border rounded-sm bg-[#fafafa] focus:outline-none focus:ring-1 transition-all ${

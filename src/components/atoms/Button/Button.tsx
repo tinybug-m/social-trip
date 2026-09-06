@@ -20,7 +20,7 @@ const Button = ({
       className={buttonVariants({ variant, size, className })}
       {...props}
     >
-      {isLoading ? 'Connecting...' : children}
+      {children}
     </button>
   )
 }

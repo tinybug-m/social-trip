@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Camera } from 'lucide-react'
 import Avatar from '@/src/components/atoms/Avatar'
+import Button from '@/src/components/atoms/Button'
 import FormField from '@/src/components/molecules/FormField'
 import Input from '@/src/components/atoms/Input'
 import { updateProfile } from '@/src/services/user/updateProfile'
@@ -106,13 +107,9 @@ export function EditProfileForm({
         />
       </FormField>
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full py-2.5 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold rounded-lg transition-all"
-      >
+      <Button type="submit" isLoading={pending}>
         {pending ? 'Saving...' : 'Save'}
-      </button>
+      </Button>
     </form>
   )
 }

@@ -29,6 +29,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="bg-white text-[#262626]">
         <NextTopLoader color="#3b82f6" showSpinner={false} height={2} />

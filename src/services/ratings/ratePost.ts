@@ -1,14 +1,9 @@
 import { supabaseClient } from '@/src/lib/supabase/client'
 import { notifyUser } from '@/src/lib/utils/notifyUser'
+import { getCurrentUser } from '@/src/services/user/getCurrentUser'
 
 export const ratePost = async (postId: string, rating: number) => {
-  const {
-    data: { user },
-    error: userError,
-  } = await supabaseClient.auth.getUser()
-
-  if (userError) throw new Error(userError.message)
-  if (!user) throw new Error('Login required')
+  const user = await getCurrentUser()
 
   const { error } = await supabaseClient
     .from('ratings')
