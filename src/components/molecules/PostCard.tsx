@@ -8,7 +8,7 @@ import { getMapUrl } from '@/src/lib/utils/mapLink'
 import { linkifyCaption } from '@/src/lib/utils/linkifyCaption'
 import Avatar from '@/src/components/atoms/Avatar'
 import ShareButton from '@/src/components/atoms/ShareButton'
-import { SaveButton } from '@/src/components/atoms/SaveButton'
+import SaveButton from '@/src/components/atoms/SaveButton'
 import { RatingSummary } from '@/src/components/molecules/RatingSummary'
 
 export function PostCard({ post }: { post: Post }) {

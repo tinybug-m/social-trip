@@ -21,4 +21,3 @@ const SaveButton = ({ size = 24 }: { size?: number }) => {
 }
 
 export default SaveButton
-export { SaveButton }

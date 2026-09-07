@@ -9,7 +9,7 @@ import Avatar from '@/src/components/atoms/Avatar'
 import { RatingSummary } from '@/src/components/molecules/RatingSummary'
 import { LeafletMap } from '@/src/components/molecules/LeafletMap'
 import ShareButton from '@/src/components/atoms/ShareButton'
-import { SaveButton } from '@/src/components/atoms/SaveButton'
+import SaveButton from '@/src/components/atoms/SaveButton'
 import { CommentsSection } from '@/src/components/organisms/CommentsSection'
 
 type Props = PageProps<'/post/[id]'>
